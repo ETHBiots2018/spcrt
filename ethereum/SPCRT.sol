@@ -1,8 +1,8 @@
 pragma solidity ^0.4.19;
 
-import "SafeMath.sol";
-import "ERC20Interface.sol";
-import "Owned.sol";
+import "./SafeMath.sol";
+import "./ERC20Interface.sol";
+import "./Owned.sol";
 
 /**
  * Contract function to receive approval and execute function in one call
