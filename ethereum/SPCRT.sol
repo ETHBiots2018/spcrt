@@ -4,7 +4,7 @@ import "SafeMath.sol";
 import "ERC20Interface.sol";
 import "Owned.sol";
 
-/*
+/**
  * Contract function to receive approval and execute function in one call
  */
 contract ApproveAndCallFallBack {
@@ -20,22 +20,56 @@ contract SPCRToken is ERC20Interface, Owned {
     string public constant name = "SPCRToken";
     string public constant symbol = "SPC";
     uint8 public constant decimals = 18; // TODO
-    uint256 public _totalSupply;
-    bool mintable = true;
 
-    mapping (address => uint256) balances;
+    uint256 public _totalSupply;
+
     mapping (address => mapping (address => uint256)) allowed;
+
+    mapping (address => uint256) spcrtBasic;
+    mapping (address => uint256) spcrtReputation;
+
+    struct BPFRRequest {
+        uint256 repairId;
+        uint256 amount;
+        address requester;
+        address repairGuy;
+    }
+
+    // map a customer to a list of his/her repair orders
+    mapping (address => BPFRRequest[]) BPFRRequests;
+
+    function requestBPFR(address repairGuy, uint256 amount, uint256 id) private {
+        address customer = msg.sender;
+        BPFRRequests[customer].push(BPFRRequest(id, amount, customer, repairGuy));
+    }
+
+    function confirmBPFR(address customer, uint256 id) public {
+        BPFRRequest[] BPFRRequestByCustomer = BPFRRequests[customer];
+        for (uint256 i = 0; i < BPFRRequestByCustomer.length; i++) {
+            BPFRRequest b = BPFRRequestByCustomer[i];
+
+            // check for valid requests
+            if (b.repairId == id) {
+                delete BPFRRequests[customer][i];
+
+                // give customer token
+                spcrtBasic[b.requester] += b.amount;
+            }
+
+            break;
+        }
+    }
 
     /*
      * ERC20 Interface implementations
      */
 
     function totalSupply() public constant returns (uint) {
-        return _totalSupply  - balances[address(0)];
+        return _totalSupply  - spcrtBasic[address(0)];
     }
 
     function balanceOf(address tokenOwner) public constant returns (uint balance) {
-        return balances[tokenOwner];
+        return spcrtBasic[tokenOwner];
     }
 
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
@@ -43,8 +77,8 @@ contract SPCRToken is ERC20Interface, Owned {
     }
 
     function transfer(address to, uint tokens) public returns (bool success) {
-        balances[msg.sender] = balances[msg.sender].sub(tokens);
-        balances[to] = balances[to].add(tokens);
+        spcrtBasic[msg.sender] = spcrtBasic[msg.sender].sub(tokens);
+        spcrtBasic[to] = spcrtBasic[to].add(tokens);
         Transfer(msg.sender, to, tokens);
         return true;
     }
@@ -56,35 +90,42 @@ contract SPCRToken is ERC20Interface, Owned {
     }
 
     function transferFrom(address from, address to, uint tokens) public returns (bool success) {
-        balances[from] = balances[from].sub(tokens);
+        spcrtBasic[from] = spcrtBasic[from].sub(tokens);
         allowed[from][msg.sender] = allowed[from][msg.sender].sub(tokens);
-        balances[to] = balances[to].add(tokens);
+        spcrtBasic[to] = spcrtBasic[to].add(tokens);
         Transfer(from, to, tokens);
         return true;
     }
 
     /**
-     * Token owner can approve for `spender` to transferFrom(...) `tokens`
-     * from the token owner's account. The `spender` contract function
-     * `receiveApproval(...)` is then executed
+     * Mint coins for recycling
      */
-    function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
-        allowed[msg.sender][spender] = tokens;
-        Approval(msg.sender, spender, tokens);
-        ApproveAndCallFallBack(spender).receiveApproval(msg.sender, tokens, this, data);
-        return true;
+    function mintRecycle(address tokenOwner, uint256 tokens) public {
+        spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
+    }
+
+    /**
+     * Mint coins referrals
+     */
+    function mintReferral(address tokenOwner, uint256 tokens) public {
+    }
+
+    /**
+     * Mint coins for part purchases
+     */
+    function mintPurchases(address tokenOwner, uint256 tokens) public {
     }
 
     /**
      * Mint tokens
      */
-    function mint(address tokenOwner, uint tokens) public onlyOwner returns (bool success) {
-        require(mintable);
-        balances[tokenOwner] = balances[tokenOwner].add(tokens);
-        _totalSupply = _totalSupply.add(tokens);
-        Transfer(address(0), tokenOwner, tokens);
-        return true;
-    }
+    // function mint(address tokenOwner, uint tokens) public onlyOwner returns (bool success) {
+    //     require(mintable);
+    //     spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
+    //     _totalSupply = _totalSupply.add(tokens);
+    //     Transfer(address(0), tokenOwner, tokens);
+    //     return true;
+    // }
 
     /**
      * Don't accept ethers
@@ -94,10 +135,9 @@ contract SPCRToken is ERC20Interface, Owned {
     }
 
     /**
-     * Owner can transfer out any accidentally sent ERC20 tokens
+     * Update reputation
      */
-    function transferAnyERC20Token(address tokenAddress, uint tokens) public onlyOwner returns (bool success) {
-        return ERC20Interface(tokenAddress).transfer(owner, tokens);
+    function mintReputation(address repOwner, uint256 tokens) public onlyOwner returns (bool success) {
     }
 }
 

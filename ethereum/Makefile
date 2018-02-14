@@ -11,3 +11,5 @@ default: spcrt
 spcrt: SPCRT.sol
 	$(SC) $(SFLAGS) SPCRT.sol
 
+clean:
+	rm -rf bin/*
