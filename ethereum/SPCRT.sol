@@ -5,13 +5,6 @@ import "./ERC20Interface.sol";
 import "./Owned.sol";
 
 /**
- * Contract function to receive approval and execute function in one call
- */
-contract ApproveAndCallFallBack {
-    function receiveApproval(address from, uint256 tokens, address token, bytes data) public;
-}
-
-/**
  * SPCRToken System implementation
  */
 contract SPCRToken is ERC20Interface, Owned {
