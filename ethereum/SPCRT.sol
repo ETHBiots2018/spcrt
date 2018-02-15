@@ -37,12 +37,10 @@ contract SPCRToken is ERC20Interface, Owned {
     // map a customer to a mapping of his/her repair orders by their id
     mapping (address => mapping (uint256 => BPFRRequest)) BPFRRequests;
 
-    // request a "buying parts for repair" token grant
-    function requestBPFR(address repairGuy, uint256 amount, uint256 id) private {
-        address customer = msg.sender;
-        BPFRRequests[customer][id] = BPFRRequest(amount, customer, repairGuy);
-    }
+    // transaction counter for every customer
+    mapping (address => uint256) txCounter;
 
+    // confirm a bpfr (as a repairGuy)
     function confirmBPFR(address customer, uint256 id) public {
         BPFRRequest req = BPFRRequests[customer][id];
 
@@ -54,6 +52,27 @@ contract SPCRToken is ERC20Interface, Owned {
             // remove the request
             delete BPFRRequests[customer][id];
         }
+    }
+
+    // repair transaction
+    function transferRepair(
+        address customer,
+        address repairGuy,
+        uint256 tokens,
+        uint256 bpfrAmount,
+        bool bpfrReq
+    ) public returns (bool success) {
+        spcrtBasic[customer] = spcrtBasic[customer].sub(tokens);
+        spcrtBasic[repairGuy] = spcrtBasic[repairGuy].add(tokens);
+
+        // issue a bpfr requst if bpfReq is set
+        if (bpfrReq) {
+            uint256 newID = txCounter[customer]++;
+            BPFRRequests[customer][newID] = BPFRRequest(bpfrAmount, customer, repairGuy);
+        }
+
+        Transfer(customer, repairGuy, tokens);
+        return true;
     }
 
     /*
