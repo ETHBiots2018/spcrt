@@ -26,19 +26,18 @@ contract SPCRToken is ERC20Interface, Owned {
     mapping (address => uint256) spcrtBasic;
     mapping (address => uint256) spcrtReputation;
 
-    // repair transaction
+    // repair transaction (sent by guy that wants repair done)
     function transferRepair(
-        address customer,
         address repairGuy,
         uint256 tokens
     ) public returns (bool success) {
-        spcrtBasic[customer] = spcrtBasic[customer].sub(tokens);
+        spcrtBasic[msg.sender] = spcrtBasic[msg.sender].sub(tokens);
         spcrtBasic[repairGuy] = spcrtBasic[repairGuy].add(tokens);
 
         // update repairGuy reputation
-        spcrtReputation[repairGuy] += 1;
+        spcrtReputation[repairGuy] = spcrtReputation[repairGuy].add(1);
 
-        Transfer(customer, repairGuy, tokens);
+        Transfer(msg.sender, repairGuy, tokens);
         return true;
     }
 
