@@ -1,0 +1,92 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+
+# Token Economics
+
+One of the biggest problems for the project was deciding how many tokens each of the incentives would return, since the system is a acyclic we need to make sure all the tokens that are created are available to get burnt and no pool gets created. In other words, we want the people to use their tokens on repairs or bonuses from the company in the end, but in the meantime they can trade second hand phones they might have available.
+
+Reviewing the four different token creation tasks we can certainly see there is a certain uniqueness to some of them, specifically "Buying parts for repair" and "Recycle", meaning they contain a ceertain spurious component. However, these are the tasks that we are most interested in promoting good behaviour, since they are critically important for the envionment health as they produce easily recyclable material. Taking this into consideration, we decided in the following distribution.
+
+Inicialization in the platform: 2 Tokens
+Promoting the platform to other users: 1 Token
+Buying parts for the repair: 8
+Recycling: 4
+
+For the burning part of tokens we have:
+Upgrading reputation: 2 Tokens
+Bouns from company: 5 Tokens
+
+The reasoning behind this previous distribution follows the following pattern of thinking. First of all, once the platform is open, users will register and get 2 tokens each, which is a way to airdrop tokens to bootstrap the system for people to be able to get inside the market. Second, users will get all their old mobile phones they have lying around home and go deposit them in an official spot, by helping the environemnt we will help them giving them 4 tokens. In this case, we had to balance the uniqueness of the event with the inicialization bootstrap. Since it is quite possible that most users actually have many old phones lying around we wanted to avoid overflowing the system with many tokens, but we have to balance it with a high enough incentive for the user to once he is done with his current phone to use the system to claim his token. Thrid, users that want to get easy bonuses will invite their friends with the proper referral link and get one token each time. This would conclude the initialization of the system. Once inside the system the user could either buy old mobile phones or use their tokens to repair his current phone or use their tokens to get a one month discount from their phone plan.
+
+Let us pay more attention to the repair part, as stated earlier this is one of the most important tasks a user can do to be environmentially friendly. If our user needs to change a part and they buy it they will recieve 8 tokens. The logic begind this is two fold, first to reward the customer for his good deed and secondly for him to be able to pay the repair man a fair price for his repair. Since the reputation costs 2 tokens to upkeep the minimum a repair man would take is 2 and optimally the price payed would be 3 so the repair man has an incentive. If the price would be 3 for the repair the user would be able to use his service and also get a bonus from the company and would be incentvized to continue using his phone.
+
+We tried to simulate how the end distribution of tokens would end up being hoping that no malicious actors tried to interfere or exploit the system. To do this we simulated 10,000 values, among them we also marked 500 of them as repairmen, and we compared the final distribution of values that the people who would use the system would look like. In other words, we are creating random values according to a few parameters to create and see compare the distribution of a normal user versus a repairman.
+
+To model the amount of referrals a new user would bring we model it with a poisson distribution with mean 3, representing that every new user would bring three new users which seems a resonable enough. For the distribution of accidents we are using a zero inflated poisson distribution, which always work well with accidental data, as we usually have a larg amount of zeros and the people whom have many accidents do not happen as much. To modelize the amount of old phones used we used a Gamma distribution to model the shape of how we think think the distribution is. We also randomized the amount of tokens every repair would have been with another ZIP, however this time we move the distribution two positive points, as explained earlier. This is obviously taking many assumptions, and the users of the system are free to do whatever they please.
+
+
+
+
+```{r}
+set.seed(1714)
+library(gamlss.dist)
+mint <- c(2,1,8,4) # inicialization, promotion, repairs, recylcle
+
+sim <- vector(length = 10000)
+# lets create 500 random repair people
+repair_id <- sample(1:10000, 500)
+j <- 1
+
+for(i in 1:10000){
+  if(i %in% repair_id){
+      aux <- rZIP(1, mu = 0.80, sigma = 0.5) # number of accidents/repairs
+      sim[i] <-sum(mint*c(1,
+                      rpois(1,3), # generate random poison with mean 3
+                      aux, 
+                      round(rgamma(1, 3, 1)) # round a gamma distribution with rate 3 and scale 1
+                      ) + sim[i]
+  )
+  
+  } else {
+      aux <- rZIP(1, mu = 0.80, sigma = 0.5) # number of accidents/repairs
+      sim[i] <-sum(mint*c(1,
+                      rpois(1,3), # generate random poison with mean 3
+                      aux, 
+                      round(rgamma(1, 3, 1)) # round a gamma distribution with rate 3 and scale 1
+                      )
+  )
+  }
+  # if we need to repair
+  if(aux != 0){
+    # Who repaired
+    who <- sample(repair_id,1)
+    
+    j <- j + 1
+    aux2 <- rZIP(1, mu = 2, sigma = 0.01) + 2 # price of repair
+    sim[i] <- sim[i] - aux2*round(aux) # amount payed and substracted user
+    sim[who] <- sim[who] + aux2*round(aux) - 2*round(aux) # amount payed to repairman
+  }
+}
+
+df <- data.frame(Tokens = sim, User_type = "Consumer", stringsAsFactors = F)
+df$User_type[1:10000 %in% repair_id] = "Repairman"
+
+
+library(ggplot2)
+
+ggplot(data=df, aes(x=Tokens, y = ..density.., fill = User_type)) +
+  geom_histogram(bins = 60) +
+  theme_minimal() + facet_grid(User_type ~.) +
+  ggtitle("Distribution of tokens among users and repairman")
+
+ggplot(data=df, aes(x=Tokens, y = ..density.., fill = User_type)) +
+  geom_histogram(bins = 60, alpha = 0.7, position = "identity") +
+  theme_minimal() + 
+  ggtitle("Distribution of tokens among users and repairman")
+
+
+```
+
