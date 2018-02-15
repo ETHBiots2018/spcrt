@@ -71,8 +71,16 @@ contract SPCRToken is ERC20Interface, Owned {
             BPFRRequests[customer][newID] = BPFRRequest(bpfrAmount, customer, repairGuy);
         }
 
+        // update repairGuy reputation
+        spcrtReputation[repairGuy] += 1;
+
         Transfer(customer, repairGuy, tokens);
         return true;
+    }
+
+    // query reputation of an address
+    function getReputation(address addr) public returns (uint256 rep) {
+        return spcrtReputation[addr];
     }
 
     /*
