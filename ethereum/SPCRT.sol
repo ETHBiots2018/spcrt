@@ -28,48 +28,15 @@ contract SPCRToken is ERC20Interface, Owned {
     mapping (address => uint256) spcrtBasic;
     mapping (address => uint256) spcrtReputation;
 
-    struct BPFRRequest {
-        uint256 amount;
-        address requester;
-        address repairGuy;
-    }
-
-    // map a customer to a mapping of his/her repair orders by their id
-    mapping (address => mapping (uint256 => BPFRRequest)) BPFRRequests;
-
-    // transaction counter for every customer
-    mapping (address => uint256) txCounter;
-
-    // confirm a bpfr (as a repairGuy)
-    function confirmBPFR(address customer, uint256 id) public {
-        BPFRRequest req = BPFRRequests[customer][id];
-
-        // check if request is initialized
-        if (req.requester != 0x0 && req.repairGuy != 0x0) {
-            // increase balance of requester
-            spcrtBasic[req.requester] += req.amount;
-
-            // remove the request
-            delete BPFRRequests[customer][id];
-        }
-    }
 
     // repair transaction
     function transferRepair(
         address customer,
         address repairGuy,
-        uint256 tokens,
-        uint256 bpfrAmount,
-        bool bpfrReq
+        uint256 tokens
     ) public returns (bool success) {
         spcrtBasic[customer] = spcrtBasic[customer].sub(tokens);
         spcrtBasic[repairGuy] = spcrtBasic[repairGuy].add(tokens);
-
-        // issue a bpfr requst if bpfReq is set
-        if (bpfrReq) {
-            uint256 newID = txCounter[customer]++;
-            BPFRRequests[customer][newID] = BPFRRequest(bpfrAmount, customer, repairGuy);
-        }
 
         // update repairGuy reputation
         spcrtReputation[repairGuy] += 1;
