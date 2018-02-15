@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon.png">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Dashboard | Sustainable Phone Network</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <link href="../vendor/css/bootstrap.css" rel="stylesheet" />
+    <link href="../assets/css/custom.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/util.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/form.css">
+
+
+    <!--     Vendor files        -->
+    <link rel="stylesheet" type="text/css" href="../vendor/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/css/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="../vendor/css/select2.min.css">
+
+    <!--     Fonts and icons     -->
+    <link href='https://fonts.googleapis.com/css?family=Cambo|Poppins:400,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../assets/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link href="../assets/css/fonts/pe-icon-7-stroke.css" rel="stylesheet">
+</head>
+
+<body>
+<i id="top"></i>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <!-- if you want to keep the navbar hidden you can add this class to the navbar "navbar-burger"-->
+    <div class="container">
+        <div class="navbar-header">
+            <button id="menu-toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar bar1"></span>
+                <span class="icon-bar bar2"></span>
+                <span class="icon-bar bar3"></span>
+            </button>
+            <a href="../#top" class="navbar-brand">
+                Sustainable Phone Network
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right navbar-uppercase">
+                <li>
+                    <a href="#" class="active">Dashboard</a>
+                </li>
+                <li>
+                    <a href="repair" >Repair</a>
+                </li>
+                <li>
+                    <a href="recycle">Recycle</a>
+                </li>
+                <li>
+                    <a href="resell">Resell</a>
+                </li>
+                <!--<li>
+                    <a href="parts">Buying Parts</a>
+                </li>-->
+                <li class="dropdown">
+                    <a href="#share" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-share-alt"></i> Share
+                    </a>
+                    <ul class="dropdown-menu dropdown-danger">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook-square"></i> Facebook</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter"></i> Twitter</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-instagram"></i> Instagram</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="../" class="btn btn-success btn-fill">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+
+<div class="section section-token" style="margin-top: 72px; min-height: 90vh">
+    <div class="token-container">
+        <div class="row warning-text">
+            <div class="col-sm-12">
+                <p id="content" class=""></p>
+            </div>
+        </div>
+
+        <div class="row" style="min-height: 460px">
+            <div class="col-sm-4">
+                <div class="address-container" style="width: 100% !important; max-height: 450px!important;">
+                    <form action="../dashboard" class="fancy-form validate-form">
+
+                        <span class="fancy-form-title p-b-34 p-t-27">
+                                Add a Blockchain address
+                            </span>
+
+                        <div class="wrap-input validate-input" data-validate = "Enter Label">
+                            <input class="fancy-input" type="text" name="label" placeholder="Label">
+                            <span class="focus-fancy-input" data-placeholder="&#xf187;"></span>
+                        </div>
+
+                        <div class="wrap-input validate-input" data-validate="Enter Address">
+                            <input class="fancy-input" type="text" name="address" placeholder="Hash Address">
+                            <span class="focus-fancy-input" data-placeholder="&#xf1c8;"></span>
+                        </div>
+
+                        <div class="container-fancy-form-btn">
+                            <button class="fancy-form-btn">
+                                Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <table>
+                    <tr>
+                        <th>Label</th>
+                        <th>Hash address</th>
+                    </tr>
+                    <tr>
+                        <td>Me</td>
+                        <td><code>0xfbe787795c58240783cbb54a0ec9f84e9f04e35b</code></td>
+                    </tr>
+                    <tr>
+                        <td>Son</td>
+                        <td><code>0x81b7e08f65bdf5aed8606c89998a9cc816439744</code></td>
+                    </tr>
+                    <tr>
+                        <td>Daughter</td>
+                        <td><code>0x44b7e0ee65bdf5aed8606cefa498a9cc6656439a</code></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <p><span class="fancy-form-title p-b-34 p-t-27">Select your active account</span></p>
+
+                <select name="account" id="account">
+                    <option value="account0" selected>Me</option>
+                    <option value="account1">Son</option>
+                    <option value="account2">Daughter</option>
+                </select>
+            </div>
+
+            <div class="col-sm-6">
+
+                <p><span class="fancy-form-title p-b-34 p-t-27">Current amount of Tokens on account</span></p>
+
+                <p><span class="fancy-form-title p-b-34 p-t-27 p-token"><span id="account-token-amount">523</span> Tokens</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer class="footer footer-big footer-color-black" data-color="black">
+    <div class="container">
+        <div class="copyright">
+            © <script> document.write(new Date().getFullYear()) </script> by the best developer team existing
+        </div>
+    </div>
+</footer>
+
+</body>
+
+<!--   core js files    -->
+<script src="../vendor/js/jquery.min.js" type="text/javascript"></script>
+<script src="../vendor/js/bootstrap.js" type="text/javascript"></script>
+<script src="../vendor/js/animsition.min.js"></script>
+<script src="../vendor/js/popper.js"></script>
+<script src="../vendor/js/select2.min.js"></script>
+
+
+<!--  js library for devices recognition -->
+<script type="text/javascript" src="../vendor/js/modernizr.js"></script>
+
+
+<!--   file where we handle all the scripts   -->
+<script type="text/javascript" src="../assets/js/custom.js"></script>
+<script src="../assets/js/form.js"></script>
+<script src="../assets/web3/web3-handler.js"></script>
+
+</html>

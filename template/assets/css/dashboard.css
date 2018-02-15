@@ -1,0 +1,56 @@
+.navbar-nav > li > a.active {
+    border-bottom: 2px solid #666;
+    padding-bottom: 3px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+}
+
+select {
+    font-family: inherit;
+    background-color: transparent;
+    width: 80%;
+    margin: 10px 10%;
+    padding: 10px 20px;
+    font-size: 25px;
+    color: #666;
+    border: none;
+    border-bottom: 2px solid #666;
+}
+
+/* Remove focus */
+select:focus {
+    outline: none}
+
+.warning-text {
+    margin-bottom: 30px;
+    width:100%;
+    text-align: center;
+}
+
+.warning-text p {
+    max-width: 80%!important;
+    margin: 0 auto;
+}
+
+.alert-danger {
+    padding: 30px 50px;
+    border-left: 5px solid #a94442;
+}
+
+.alert-success {
+    padding: 30px 50px;
+    border-left: 5px solid #3c763d;
+}
