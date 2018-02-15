@@ -1,9 +1,9 @@
 $(window).on('load', function() {
 
-    var ownerAddress = "";
+    var ownerAddress = "0x417ac95EE9FF85512848a27A88e32a1A2D0CE661";
     
     var contractAddress = "";
-    var contractAbi = [ /* contractABi */ ];
+    var contractAbi = [ /* contractAbi */ ];
 
     var cont = $('#content');
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
