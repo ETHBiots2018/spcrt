@@ -28,7 +28,6 @@ contract SPCRToken is ERC20Interface, Owned {
     mapping (address => uint256) spcrtBasic;
     mapping (address => uint256) spcrtReputation;
 
-
     // repair transaction
     function transferRepair(
         address customer,
@@ -92,6 +91,7 @@ contract SPCRToken is ERC20Interface, Owned {
      */
     function mintRecycle(address tokenOwner, uint256 tokens) public {
         spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
+		_totalSupply = _totalSupply.add(tokens);
     }
 
     /**
@@ -100,25 +100,16 @@ contract SPCRToken is ERC20Interface, Owned {
     function mintReferral(address tokenOwner, uint256 tokens) public {
 		spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
 		_totalSupply = _totalSupply.add(tokens);
-		Transfer(address(0), tokenOwner, tokens);
 	}
 
     /**
-     * Mint coins for part purchases
+     * Mint for collection mechanism
      */
-    function mintPurchases(address tokenOwner, uint256 tokens) public {
+    function mintCollection(address objReceiver, uint256 tokens) public {
+        spcrtBasic[msg.sender] += tokens;
+        spcrtBasic[objReceiver] += tokens;
+        _totalSupply = _totalSupply.add(tokens * 2);
     }
-
-    /**
-     * Mint tokens
-     */
-    // function mint(address tokenOwner, uint tokens) public onlyOwner returns (bool success) {
-    //     require(mintable);
-    //     spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
-    //     _totalSupply = _totalSupply.add(tokens);
-    //     Transfer(address(0), tokenOwner, tokens);
-    //     return true;
-    // }
 
     /**
      * Don't accept ethers
