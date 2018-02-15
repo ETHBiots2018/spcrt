@@ -46,8 +46,9 @@ contract SPCRToken is ERC20Interface, Owned {
 
         // check if request is initialized
         if (req.requester != 0x0 && req.repairGuy != 0x0) {
-            // increase balance of requester
+            // increase balance of requester (mint)
             spcrtBasic[req.requester] += req.amount;
+		    _totalSupply = _totalSupply.add(req.amount);
 
             // remove the request
             delete BPFRRequests[customer][id];
@@ -125,6 +126,7 @@ contract SPCRToken is ERC20Interface, Owned {
      */
     function mintRecycle(address tokenOwner, uint256 tokens) public {
         spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
+		_totalSupply = _totalSupply.add(tokens);
     }
 
     /**
@@ -133,25 +135,16 @@ contract SPCRToken is ERC20Interface, Owned {
     function mintReferral(address tokenOwner, uint256 tokens) public {
 		spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
 		_totalSupply = _totalSupply.add(tokens);
-		Transfer(address(0), tokenOwner, tokens);
 	}
 
     /**
-     * Mint coins for part purchases
+     * Mint for collection mechanism
      */
-    function mintPurchases(address tokenOwner, uint256 tokens) public {
+    function mintCollection(address objReceiver, uint256 tokens) public {
+        spcrtBasic[msg.sender] += tokens;
+        spcrtBasic[objReceiver] += tokens;
+        _totalSupply = _totalSupply.add(tokens * 2);
     }
-
-    /**
-     * Mint tokens
-     */
-    // function mint(address tokenOwner, uint tokens) public onlyOwner returns (bool success) {
-    //     require(mintable);
-    //     spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
-    //     _totalSupply = _totalSupply.add(tokens);
-    //     Transfer(address(0), tokenOwner, tokens);
-    //     return true;
-    // }
 
     /**
      * Don't accept ethers
