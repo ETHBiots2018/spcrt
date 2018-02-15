@@ -23,40 +23,36 @@ contract SPCRToken is ERC20Interface, Owned {
 
     uint256 public _totalSupply;
 
-    mapping (address => mapping (address => uint256)) allowed;
+    mapping (address => mapping (address => uint256)) allowedSpcrtBasic;
 
     mapping (address => uint256) spcrtBasic;
     mapping (address => uint256) spcrtReputation;
 
     struct BPFRRequest {
-        uint256 repairId;
         uint256 amount;
         address requester;
         address repairGuy;
     }
 
-    // map a customer to a list of his/her repair orders
-    mapping (address => BPFRRequest[]) BPFRRequests;
+    // map a customer to a mapping of his/her repair orders by their id
+    mapping (address => mapping (uint256 => BPFRRequest)) BPFRRequests;
 
+    // request a "buying parts for repair" token grant
     function requestBPFR(address repairGuy, uint256 amount, uint256 id) private {
         address customer = msg.sender;
-        BPFRRequests[customer].push(BPFRRequest(id, amount, customer, repairGuy));
+        BPFRRequests[customer][id] = BPFRRequest(amount, customer, repairGuy);
     }
 
     function confirmBPFR(address customer, uint256 id) public {
-        BPFRRequest[] BPFRRequestByCustomer = BPFRRequests[customer];
-        for (uint256 i = 0; i < BPFRRequestByCustomer.length; i++) {
-            BPFRRequest b = BPFRRequestByCustomer[i];
+        BPFRRequest req = BPFRRequests[customer][id];
 
-            // check for valid requests
-            if (b.repairId == id) {
-                delete BPFRRequests[customer][i];
+        // check if request is initialized
+        if (req.requester != 0x0 && req.repairGuy != 0x0) {
+            // increase balance of requester
+            spcrtBasic[req.requester] += req.amount;
 
-                // give customer token
-                spcrtBasic[b.requester] += b.amount;
-            }
-
-            break;
+            // remove the request
+            delete BPFRRequests[customer][id];
         }
     }
 
@@ -73,7 +69,7 @@ contract SPCRToken is ERC20Interface, Owned {
     }
 
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
-        return allowed[tokenOwner][spender];
+        return allowedSpcrtBasic[tokenOwner][spender];
     }
 
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -84,14 +80,14 @@ contract SPCRToken is ERC20Interface, Owned {
     }
 
     function approve(address spender, uint tokens) public returns (bool success) {
-        allowed[msg.sender][spender] = tokens;
+        allowedSpcrtBasic[msg.sender][spender] = tokens;
         Approval(msg.sender, spender, tokens);
         return true;
     }
 
     function transferFrom(address from, address to, uint tokens) public returns (bool success) {
         spcrtBasic[from] = spcrtBasic[from].sub(tokens);
-        allowed[from][msg.sender] = allowed[from][msg.sender].sub(tokens);
+        allowedSpcrtBasic[from][msg.sender] = allowedSpcrtBasic[from][msg.sender].sub(tokens);
         spcrtBasic[to] = spcrtBasic[to].add(tokens);
         Transfer(from, to, tokens);
         return true;
