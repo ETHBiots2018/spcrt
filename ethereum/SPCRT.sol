@@ -123,7 +123,10 @@ contract SPCRToken is ERC20Interface, Owned {
      * Mint coins referrals
      */
     function mintReferral(address tokenOwner, uint256 tokens) public {
-    }
+		spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
+		_totalSupply = _totalSupply.add(tokens);
+		Transfer(address(0), tokenOwner, tokens);
+	}
 
     /**
      * Mint coins for part purchases
