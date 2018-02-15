@@ -50,7 +50,7 @@ contract SPCRToken is ERC20Interface, Owned {
     }
 
     // query reputation of an address
-    function getReputation(address addr) public returns (uint256 rep) {
+    function getReputation(address addr) public view returns (uint256 rep) {
         return spcrtReputation[addr];
     }
 
@@ -94,8 +94,8 @@ contract SPCRToken is ERC20Interface, Owned {
     /**
      * Mint coins for recycling
      */
-    function mintRecycle(address recycler) public {
-        spcrtBasic[recycler] = spcrtBasic[recycler].add(recycleReward);
+    function mintRecycle() public {
+        spcrtBasic[msg.sender] = spcrtBasic[msg.sender].add(recycleReward);
 		_totalSupply = _totalSupply.add(recycleReward);
     }
 
@@ -122,12 +122,6 @@ contract SPCRToken is ERC20Interface, Owned {
      */
     function () public payable {
         revert();
-    }
-
-    /**
-     * Update reputation
-     */
-    function mintReputation(address repOwner, uint256 tokens) public onlyOwner returns (bool success) {
     }
 }
 
