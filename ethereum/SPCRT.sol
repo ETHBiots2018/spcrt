@@ -19,7 +19,12 @@ contract SPCRToken is ERC20Interface, Owned {
 
     string public constant name = "SPCRToken";
     string public constant symbol = "SPC";
-    uint8 public constant decimals = 18; // TODO
+    uint8 public constant decimals = 18;
+
+    uint256 private initalToken = 4;
+    uint256 private recycleReward = 2;
+    uint256 private referralReward = 1;
+    uint256 private collectionReward = 1;
 
     uint256 public _totalSupply;
 
@@ -89,26 +94,27 @@ contract SPCRToken is ERC20Interface, Owned {
     /**
      * Mint coins for recycling
      */
-    function mintRecycle(address tokenOwner, uint256 tokens) public {
-        spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
-		_totalSupply = _totalSupply.add(tokens);
+    function mintRecycle(address recycler) public {
+        spcrtBasic[recycler] = spcrtBasic[recycler].add(recycleReward);
+		_totalSupply = _totalSupply.add(recycleReward);
     }
 
     /**
-     * Mint coins referrals
+     * A user is introduced to the system
      */
-    function mintReferral(address tokenOwner, uint256 tokens) public {
-		spcrtBasic[tokenOwner] = spcrtBasic[tokenOwner].add(tokens);
-		_totalSupply = _totalSupply.add(tokens);
+    function introduction(address referrer) public {
+        spcrtBasic[msg.sender] = initalToken;
+		spcrtBasic[referrer] = spcrtBasic[referrer].add(referralReward);
+		_totalSupply = _totalSupply.add(initalToken.add(referralReward));
 	}
 
     /**
      * Mint for collection mechanism
      */
-    function mintCollection(address objReceiver, uint256 tokens) public {
-        spcrtBasic[msg.sender] += tokens;
-        spcrtBasic[objReceiver] += tokens;
-        _totalSupply = _totalSupply.add(tokens * 2);
+    function mintCollection(address objReceiver) public {
+        spcrtBasic[msg.sender] = spcrtBasic[msg.sender].add(collectionReward);
+        spcrtBasic[objReceiver] = spcrtBasic[objReceiver].add(collectionReward);
+        _totalSupply = _totalSupply.add(collectionReward.mul(2));
     }
 
     /**
