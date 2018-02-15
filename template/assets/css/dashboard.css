@@ -54,3 +54,54 @@ select:focus {
     padding: 30px 50px;
     border-left: 5px solid #3c763d;
 }
+
+.warning-text .alert-success{
+    /*max-height:0;*/
+    overflow: hidden;
+    -moz-animation: slide 1s ease 5s forwards;
+    -webkit-animation: slide 1s ease 5s forwards;
+    -o-animation: slide 1s ease 5s forwards;
+    -ms-animation: slide 1s ease 5s forwards;
+    animation: slide 1s ease 5s forwards;
+}
+
+.warning-text .alert-danger {
+    /*max-height:0;*/
+    overflow: hidden;
+    -moz-animation: slide 1s ease 15s forwards;
+    -webkit-animation: slide 1s ease 15s forwards;
+    -o-animation: slide 1s ease 15s forwards;
+    -ms-animation: slide 1s ease 15s forwards;
+    animation: slide 1s ease 15s forwards;
+}
+
+
+@-moz-keyframes slide /* Firefox */
+{
+    from {max-height: 23px; padding: 1px 1px 1px 30px;}
+    to {max-height: 0; padding: 0;}
+}
+
+@-webkit-keyframes slide /* Safari and Chrome */
+{
+    from {max-height: 23px; padding: 1px 1px 1px 30px;}
+    to {max-height: 0; padding: 0;}
+}
+
+@-o-keyframes slide /* Opera */
+{
+    from {max-height: 23px; padding: 1px 1px 1px 30px;}
+    to {max-height: 0; padding: 0;}
+}
+
+@-ms-keyframes slide /* IE10 */
+{
+    from {max-height: 23px; padding: 1px 1px 1px 30px;}
+    to {max-height: 0; padding: 0;}
+}
+
+@keyframes slide
+{
+    from {max-height: 23px; padding: 1px 1px 1px 30px;}
+    to {max-height: 0; padding: 0;}
+}

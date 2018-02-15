@@ -8,9 +8,9 @@ $(window).on('load', function() {
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
     if (typeof web3 !== 'undefined') {
         // Use Mist/MetaMask's provider
-        cont.text('Everything up and running!');
-        cont. removeClass();
-        cont.addClass('alert-success');
+        //cont.text('Everything up and running!');
+        //cont. removeClass();
+        //cont.addClass('alert-success');
         window.web3 = new Web3(web3.currentProvider);
     } else {
         var errorMsg = 'web3 is missing :( Please open in Google Chrome Browser and install the Metamask extension.';
@@ -40,6 +40,8 @@ $(window).on('load', function() {
         e.preventDefault(); // cancel the actual submit
         var repairAddress = $('#repair-address').val();
         var tokens = $('#repair-token-amount').val();
+
+        if(repairAddress === '' || tokens === '') return;
         contractInstance.transferRepair(ownerAddress, repairAddress, tokens, function(error, repair) {
             if (error) {
                 var errorMsg = 'error with transfer ' + error;
@@ -58,8 +60,8 @@ $(window).on('load', function() {
     $('#recycle').on('submit', function(e) {
         e.preventDefault(); // cancel the actual submit
         var validationKey = $('#validation-key').val();
-
-        if(validationKey === 123456) {
+        if(validationKey === '') return;
+        if(validationKey == 123456) {
             var errorMsg = 'Validation Key invalid! Process aborted';
             cont.text(errorMsg);
             cont. removeClass();
@@ -67,7 +69,7 @@ $(window).on('load', function() {
             console.log(errorMsg);
             return;
         } else {
-            contractInstance.mintRecycle(ownerAddress, function(error, recyle) {
+            contractInstance.mintRecycle(function(error, recyle) {
                 if (error) {
                     var errorMsg = 'error with recycle transaction ' + error;
                     cont.text(errorMsg);
@@ -87,6 +89,7 @@ $(window).on('load', function() {
         e.preventDefault(); // cancel the actual submit
         var buyerAddress = $('#buyer-address');
         var tokens = $('#byer-token-amount');
+        if(buyerAddress === ''|| tokens === '') return;
         contractInstance.transferResell(ownerAddress,buyerAddress,tokens, function(error, txHash) {
             if (error) {
                 var errorMsg = 'error with transfer ' + error;
