@@ -87,10 +87,12 @@ $(window).on('load', function() {
 
     $('#resell').on('submit', function(e) {
         e.preventDefault(); // cancel the actual submit
-        var buyerAddress = $('#buyer-address');
-        var tokens = $('#byer-token-amount');
+        var buyerAddress = $('#buyer-address').val();
+        var tokens = $('#buyer-token-amount').val();
+        console.log(buyerAddress);
+        console.log(tokens);
         if(buyerAddress === ''|| tokens === '') return;
-        contractInstance.transfer(buyerAddress, tokens, function(error, txHash) {
+        contractInstance.transfer(buyerAddress, tokens, function(error, result) {
             if (error) {
                 var errorMsg = 'error with transfer ' + error;
                 cont.text(errorMsg);
