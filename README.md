@@ -12,7 +12,7 @@ we came up with an ERC20 compatible token system (SPC) to incentivize those acti
 
 A DAPP using the MetaMask framework was created. You can login with any username/password combination ☺.
 There are no external oracles (yet) that check if a phone was __actually__ recycled,
-so you can get tokens by using the *recylce* functionality.
+so you can get tokens by using the *recyclce* functionality.
 
 The Ethereum smart contract for the demo lives at `0x0bd69bd276d7c0a205cd7096f65b69e14d369214` on the Rinkeby Test Net.
 
