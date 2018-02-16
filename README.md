@@ -25,6 +25,9 @@ The Ethereum smart contract for the demo lives at `0x0bd69bd276d7c0a205cd7096f65
 - Lukas Tobler
 - Philippe Goetschmann
 
+## Demo
+![demo](./pictures/recording.gif)
+
 ## Screenshots
 
 ![screnshot1](./pictures/screenshot1.png)
