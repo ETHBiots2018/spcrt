@@ -25,9 +25,12 @@ The Ethereum smart contract for the demo lives at `0x0bd69bd276d7c0a205cd7096f65
 - Lukas Tobler
 - Philippe Goetschmann
 
-## Details
+## Screenshots
 
-### Numbers
+![screnshot0](./pictures/screenshot0.png)
+![screnshot1](./pictures/screenshot1.png)
+
+## Numbers
 To obtain optimal costs and gains that maximize the impact of our incentive system we ran simulations to determine the best values for the actions in our system:
 ![graph showing economic distribution after simulation](./pictures/graph.png "Economic Distribution")
 
