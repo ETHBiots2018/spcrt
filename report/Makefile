@@ -5,10 +5,6 @@ TEXOPTS=-output-directory=build \
 		-latexoption=-file-line-error
 COLORIZE=grep --color -E ".*Warning.*|.*Missing.*|$$"
 
-ifdef PREVIEW
-PREVIEWOPTS=-pvc
-endif
-
 defaul: all
 all: report
 
