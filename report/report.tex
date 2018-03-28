@@ -26,7 +26,7 @@
     \and
     Anja Ulrich
 }
-\date{February 2018}
+\date{March 2018}
 
 \begin{document}
 %
@@ -35,11 +35,12 @@
 \begin{center}
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.2\textwidth]{img/cc_license.png}
+        \includegraphics[width=0.15\textwidth]{img/cc_license.png}
         \vspace{-0.3cm}
     \end{figure}
     This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
-    International License (https://creativecommons.org/licenses/by-sa/4.0/)
+    International License\footnote{(https://creativecommons.org/licenses/by-sa/4.0/)},
+    if not stated otherwise.
 \end{center}
 
 \begin{abstract}
@@ -57,14 +58,14 @@
 
 \section{Current situation in Switzerland (Anja and Lukas)}
 
-According to the organization ``Swiss Recycling'', Switzerland belongs to the pioneers and role models worldwide concerning recycling with a return rate of 95\% in electronic devices\footnote{Swico Jahresbericht 2015, p.12~\cite{swico}}. Surprisingly, this does not hold for mobile phones. Swiss citizens only recycle around 20\% of their mobile phones and most of them are buried and forgotten somewhere at home\footnote{Swico Jahresbericht 2015, p. 12--13~\cite{swico}}. Even more surprising is the fact that recycling for mobile phones (as well any other electronic device) is paid for in advance by including a fee in the price of the device (for a mobile phone this is about 0.1 CHF). In this fee, collection and transportation of the devices to the recycling facility is included. However, the materials do not get recycled in Switzerland, as the effort and associated cost of extracting the valuable materials from mobile phones is quite high. This usually gets outsourced to Sweden or Belgium.
+According to the organization ``Swiss Recycling'', Switzerland belongs to the pioneers and role models worldwide concerning recycling with a return rate of 95\% in electronic devices\footnote{Swico Jahresbericht 2015, p.12~\cite{swico}}. Surprisingly, this does not hold for mobile phones. Swiss citizens only recycle around 20\% of their mobile phones and most of them are buried and forgotten somewhere at home\footnote{Swico Jahresbericht 2015, p. 12--13~\cite{swico}}. Even more surprising is the fact that recycling for mobile phones (also any other electronic device) is paid for in advance by including a fee in the price of the device (for a mobile phone this is about 0.1 CHF). In this fee, collection and transportation of the devices to the recycling facility is included. However, the materials do not get recycled in Switzerland, as the effort and associated cost of extracting the valuable materials from mobile phones is quite high. This usually gets outsourced to Sweden or Belgium.
 
 Phones still contain a lot of value when they are end-of-life: In every newer phone there is about 1 CHF worth of gold, in older ones even up to 2 CHF\footnote{Reto Widmer und Peter Buchmann, Ausgediente Smartphones~\cite{SRF}}. But not only the lack of circularity is a problem, but also the fact that some materials used in electronic devices are so-called ``resource-relevant'' metals. The term resource-relevant, originating from a German study~\cite{Studie}, describes the fact that these materials have a high economic importance for the electronic industry as well as a high supply risk. The higher these two factors, the higher the criticality of a metal (see figure~\ref{fig:crit}). Table~\ref{tbl:crit} from that specific survey shows how much of these materials are used in a typical mobile phone.
 
 %
 \begin{figure} [H]
     \includegraphics[width=\textwidth]{img/criticality}
-    \caption{Resource criticality of some metals,~\cite{Studie} p.23}%
+    \caption{Economic significance vs. resource criticality, ~\cite{Studie} p.23 (\copyright~Rights belong to their respective owners)}%
     \label{fig:crit}
 \end{figure}
 %
@@ -90,7 +91,7 @@ Phones still contain a lot of value when they are end-of-life: In every newer ph
     \label{tbl:crit}
 \end{table}
 
-Considering that demand from the world economy for these materials increases, the question of how much more rare materials can be mined from the earth without getting them back into circulation before an environmental collapse occurs seems appropriate\footnote{Sander, Knut: Abfallwirtschaftliche Produktverantwortung unter Ressourcenschutzaspekte, p.7--25~\cite{Studie}}.
+Considering that demand from the world economy for these materials increases, the question of how much more rare materials can be mined from the earth without getting them back into circulation before an environmental collapse occurs, seems appropriate\footnote{Sander, Knut: Abfallwirtschaftliche Produktverantwortung unter Ressourcenschutzaspekte, p.7--25~\cite{Studie}}.
 
 A silver lining is the fact that the telecommunication companies seem to have started to realize the gravity of the question raised above. Swisscom, the largest telecommunication company in Switzerland, created two programs to combat the problem that phones are hardly ever recycled. One of their programs, called ``Mobile Bonus'', offers their clients the possibility to sell their old phones back to Swisscom. The second program, called ``Mobile Aid'', lets people hand in their phones to Swisscom as a donation. The ``Réalise'' organization (dedicated to reintegrating welfare recipients) will then repair or recycle them, and all the profits made are donated to the SOS Kinderdorf foundation\footnote{Baur Roge, Der vergessene Schatz in unseren Schubladen, p.7--25~\cite{Swisscom}}. Despite the efforts of Swisscom and other actors, so far society seems to be unaware of the problem.
 
@@ -116,7 +117,7 @@ There are a few different ways the tokens can be generated or used. Upon registe
 
 So how can these different tokens now be used within the system? A prosumer can offer his phone for sale in exchange for an individually defined amount of SPCs to another prosumer. So, the SPC gets transferred from one prosumer to the other. The selling prosumer, of course, can be a repairing guy who bought older phones beforehand and then repaired or refurbished them, or someone who just got a new phone and wants to sell the old one.
 
-If a prosumer wants his phone to be repaired, he or she can go to the platform to find the closest repair guys and get into contact with them (the repair guys would enter the location their office (for example) on the platform). He then can describe the problem to the Repair Guy or in special cases also bring it by for a short analysis of an unknown problem. The Repair Guy in return can communicate to the prosumer what kind of parts he needs for this job, in case he accepts the job as well as the expected amount of SPCs he wants in return. The prosumer then can launch a smart contract which the repair guy needs to confirm. After this, the prosumer buys the replacement parts (not with SPCs, in the real world) himself or organizes them in some other form. This generates him some additional SPCs. He then gives the phone and the parts to the repair guy who repairs the phone and returns it. The prosumer, after receiving the fixed or renewed phone, can confirm this and with this automatically initialize the actual SPC transfer. The repair guy receives, apart from the SPC, additional repair tokens. With these repair Tokens and some SPC Tokens he can create a reputation token which reflects his skill and overall customer satisfaction. With the SPCs it is also possible to get a discount on subscription from the telecommunication company. This should be an incentive for the repair guy for offering his skills. How much the discount should be needs to be negotiated with the telecommunication company first. The last process is the collecting phones from others and recycling them. In this process a prosumer gives away his phone to another prosumer who collects them and already gets a certain amount of SPCs for this. When the collector recycles the mobile phones the prosumer who gave away the phone only gets half of the SPCs he would have gotten for recycling, and the other half goes to the collector. If the mobile phones are resold, the prosumer who gave away the phone gets a quarter and three quarter are for the collector. If the phone is from a person not registered to the network, the collector gets all the SPCs.
+If a prosumer wants his phone to be repaired, he or she can go to the platform to find the closest repair guys and get into contact with them (the repair guys would enter the location their office (for example) on the platform). He then can describe the problem to the Repair Guy or in special cases also bring it by for a short analysis of an unknown problem. The Repair Guy in return can communicate to the prosumer what kind of parts he needs for this job, in case he accepts the job as well as the expected amount of SPCs he wants in return. The prosumer then can launch a smart contract which the repair guy needs to confirm. After this, the prosumer buys the replacement parts (not with SPCs, in the real world) himself or organizes them in some other form. This generates him some additional SPCs. He then gives the phone and the parts to the repair guy who repairs the phone and returns it. The prosumer, after receiving the fixed or renewed phone, can confirm this and with this automatically initialize the actual SPC transfer. The repair guy receives, apart from the SPC, additional repair tokens. With these repair Tokens and some SPC Tokens he can create a reputation token which reflects his skill and overall customer satisfaction. With the SPCs it is also possible to get a discount on subscription from the telecommunication company. This should be an incentive for the repair guy for offering his skills. How much the discount should be, needs to be negotiated with the telecommunication company first. The last process is the collecting phones from others and recycling them. In this process a prosumer gives away his phone to another prosumer who collects them and already gets a certain amount of SPCs for this. When the collector recycles the mobile phones the prosumer who gave away the phone only gets half of the SPCs he would have gotten for recycling, and the other half goes to the collector. If the mobile phones are resold, the prosumer who gave away the phone gets a quarter and three quarter are for the collector. If the phone is from a person not registered to the network, the collector gets all the SPCs.
 
 To add some further explanation to the repair tokens, the reason why the repair token were introduced is to prevent creating reputation of prosumers which do not offer a service and somehow try abusing the reputation system as the reputation should represent the number of completed repair jobs of a repair guy.
 
@@ -166,7 +167,7 @@ As the website interface, we chose a modern and user-friendly UI. At the start, 
     \label{fig:recycle_web}
 \end{figure}
 
-In addition to this, there is also a basic validation form. By recycling your phone the user receives a validation code which then can be entered in the validation form to enable the transaction of tokens to the user's account. This very basic measure is in place to prevent abuse by not allowing users to just click the ``recycle'' button as often as they want (ideally only once per recycled phone). Lastly, there is a ``resell'' page, where a transaction consisting of one participant selling his/her phone to another for an amount of token can be made.
+In addition to this, there is also a basic validation form. By recycling your phone the user receives a validation code which then can be entered in the validation form to enable the transaction of tokens to the user's account. This very basic measure is in place to prevent abuse by not allowing users to just click the ``recycle'' button as often as they want (ideally only once per recycled phone). Lastly, there is a ``resell'' page, where a transaction consisting of one participant selling his/her phone to another for some amount of token can be made.
 
 \subsubsection{Analysis (Benjamin)}
 
