@@ -12,36 +12,50 @@
 \bibliography{literatur}
 
 \title{SPCRT:\@ Sustainable Phone Contract Recycle Token}
-\subtitle{BIOTS Hackathon 2018}
+\subtitle{Blockchain And the Internet of Things (851-0591-01L)}
 \author{%
-    Philippe Goetschmann
+    Philippe Goetschmann \textit{\textless pgoetsch@student.ethz.ch\textgreater}%
     \and
-    Raphael Koch
+    Raphael Koch \textit{\textless rapkoch@student.ethz.ch\textgreater}%
     \and
-    Benjamin Parellada
+    Benjamin Parellada \textit{\textless bparelca7@alumnes.ub.edu\textgreater}%
     \and
-    Tomohiro Shibata
+    Tomohiro Shibata \textit{\textless tsh@student.ethz.ch\textgreater}%
     \and
-    Lukas Tobler
+    Lukas Tobler \textit{\textless lutobler@student.ethz.ch\textgreater}%
     \and
-    Anja Ulrich
+    Anja Ulrich \textit{\textless anulrich@student.ethz.ch\textgreater}%
 }
-\date{March 2018}
+\date{ETH Zurich, March 2018}
 
 \begin{document}
 %
 \maketitle
 %
 \begin{center}
+Sections are given attribution to a specific author by her/his name. The website was written by Raphael (with contributions from Lukas), the Solidity code and website/contract deployment was done by Lukas and Phillipe.
+
+\vspace{2mm}
+The software code which is part of this report is free and open source and available at \url{https://github.com/ETHBiots2018/spcrt}
+
+\vspace{2mm}
+This project report was written as part of the spring 2018 course 'Blockchain And the Internet of Things (851-0591-01L)' run by M. Dapp, S. Klauser, and D. Helbing.
+
+\vspace{2mm}
+This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+International License\footnote{(https://creativecommons.org/licenses/by-sa/4.0/)},
+if not stated otherwise.
+\end{center}
+
+\begin{center}
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.15\textwidth]{img/cc_license.png}
-        \vspace{-0.3cm}
+        \includegraphics[width=0.2\textwidth]{img/cc_license.png}
+        \vspace{-0.2cm}
     \end{figure}
-    This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
-    International License\footnote{(https://creativecommons.org/licenses/by-sa/4.0/)},
-    if not stated otherwise.
 \end{center}
+
+\pagebreak
 
 \begin{abstract}
     A big problem for today's society and our planets ecosystem is that not
@@ -62,6 +76,9 @@ According to the organization ``Swiss Recycling'', Switzerland belongs to the pi
 
 Phones still contain a lot of value when they are end-of-life: In every newer phone there is about 1 CHF worth of gold, in older ones even up to 2 CHF\footnote{Reto Widmer und Peter Buchmann, Ausgediente Smartphones~\cite{SRF}}. But not only the lack of circularity is a problem, but also the fact that some materials used in electronic devices are so-called ``resource-relevant'' metals. The term resource-relevant, originating from a German study~\cite{Studie}, describes the fact that these materials have a high economic importance for the electronic industry as well as a high supply risk. The higher these two factors, the higher the criticality of a metal (see figure~\ref{fig:crit}). Table~\ref{tbl:crit} from that specific survey shows how much of these materials are used in a typical mobile phone.
 
+
+Considering that demand from the world economy for these materials increases, the question of how much more rare materials can be mined from the earth without getting them back into circulation before an environmental collapse occurs, seems appropriate\footnote{Sander, Knut: Abfallwirtschaftliche Produktverantwortung unter Ressourcenschutzaspekte, p.7--25~\cite{Studie}}.
+
 %
 \begin{figure} [H]
     \includegraphics[width=\textwidth]{img/criticality}
@@ -71,9 +88,9 @@ Phones still contain a lot of value when they are end-of-life: In every newer ph
 %
 \begin{table} [H]
     \centering
-    \begin{tabular}{c c}
+    \begin{tabular}{l c}
         \toprule
-        Resource relevant metals & Contained in mobile phones (mg) \\ \midrule
+        \textbf{Resource relevant metals} & \textbf{Contained in mobile phones (mg)} \\ \midrule
         Gold & 30 \\ \midrule
         Silver & 305 \\ \midrule
         Palladium & 11 \\ \midrule
@@ -91,7 +108,6 @@ Phones still contain a lot of value when they are end-of-life: In every newer ph
     \label{tbl:crit}
 \end{table}
 
-Considering that demand from the world economy for these materials increases, the question of how much more rare materials can be mined from the earth without getting them back into circulation before an environmental collapse occurs, seems appropriate\footnote{Sander, Knut: Abfallwirtschaftliche Produktverantwortung unter Ressourcenschutzaspekte, p.7--25~\cite{Studie}}.
 
 A silver lining is the fact that the telecommunication companies seem to have started to realize the gravity of the question raised above. Swisscom, the largest telecommunication company in Switzerland, created two programs to combat the problem that phones are hardly ever recycled. One of their programs, called ``Mobile Bonus'', offers their clients the possibility to sell their old phones back to Swisscom. The second program, called ``Mobile Aid'', lets people hand in their phones to Swisscom as a donation. The ``Réalise'' organization (dedicated to reintegrating welfare recipients) will then repair or recycle them, and all the profits made are donated to the SOS Kinderdorf foundation\footnote{Baur Roge, Der vergessene Schatz in unseren Schubladen, p.7--25~\cite{Swisscom}}. Despite the efforts of Swisscom and other actors, so far society seems to be unaware of the problem.
 
@@ -177,9 +193,9 @@ Reviewing the four different token creation tasks, there is a certain uniqueness
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{c c}
+    \begin{tabular}{l c}
         \toprule
-        Token Minting Event & Token Minted \\ \midrule
+        \textbf{Token Minting Event} & \textbf{Token Minted} \\ \midrule
         Introduction the platform & 2 \\ \midrule
         Promoting the platform to other users & 1 \\ \midrule
         Buying parts for the repair & 8 \\ \midrule
@@ -191,9 +207,9 @@ Reviewing the four different token creation tasks, there is a certain uniqueness
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{c c}
+    \begin{tabular}{l c}
         \toprule
-        Token Burning Event & Token burned \\ \midrule
+        \textbf{Token Burning Event} & \textbf{Token burned} \\ \midrule
         Upgrading reputation & 2 \\ \midrule
         Bonus from company& 5 \\ \bottomrule
     \end{tabular}
